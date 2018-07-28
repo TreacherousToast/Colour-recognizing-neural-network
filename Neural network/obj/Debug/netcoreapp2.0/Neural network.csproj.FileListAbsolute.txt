@@ -1,0 +1,11 @@
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.csprojResolveAssemblyReference.cache
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.csproj.CoreCompileInputs.cache
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.AssemblyInfoInputs.cache
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.AssemblyInfo.cs
+/Users/callumoriley/Documents/VSCode/Neural network/bin/Debug/netcoreapp2.0/Neural network.deps.json
+/Users/callumoriley/Documents/VSCode/Neural network/bin/Debug/netcoreapp2.0/Neural network.runtimeconfig.json
+/Users/callumoriley/Documents/VSCode/Neural network/bin/Debug/netcoreapp2.0/Neural network.runtimeconfig.dev.json
+/Users/callumoriley/Documents/VSCode/Neural network/bin/Debug/netcoreapp2.0/Neural network.dll
+/Users/callumoriley/Documents/VSCode/Neural network/bin/Debug/netcoreapp2.0/Neural network.pdb
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.dll
+/Users/callumoriley/Documents/VSCode/Neural network/obj/Debug/netcoreapp2.0/Neural network.pdb
