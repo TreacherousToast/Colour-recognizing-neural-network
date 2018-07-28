@@ -342,7 +342,7 @@ namespace Neural_network
         float[] stepSizes;
         public float[] bestWeights;
         public float output;
-        float bias;
+        float bias; // when the bias is added to the summed weighted inputs, the network seems to perform worse
 
         public void initialize(int numOfInputs)
         {
