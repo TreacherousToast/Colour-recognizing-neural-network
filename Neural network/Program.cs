@@ -90,7 +90,7 @@ namespace Neural_network
             float[] differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = actualOutput[i] - expectedOutput[i];
+                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
             }
             float firstCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -153,7 +153,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = actualOutput[i] - expectedOutput[i];
+                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
             }
             float secondCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -227,7 +227,7 @@ namespace Neural_network
                 differences = new float[expectedOutput.Length];
                 for (int i = 0; i < expectedOutput.Length; i++)
                 {
-                    differences[i] = actualOutput[i] - expectedOutput[i];
+                    differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
                 }
                 float cost = 0.0f;
                 for (int i = 0; i < differences.Length; i++)
@@ -342,7 +342,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = actualOutput[i] - expectedOutput[i];
+                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
             }
             firstCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -405,7 +405,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = actualOutput[i] - expectedOutput[i];
+                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
             }
             secondCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -479,7 +479,7 @@ namespace Neural_network
                 differences = new float[expectedOutput.Length];
                 for (int i = 0; i < expectedOutput.Length; i++)
                 {
-                    differences[i] = actualOutput[i] - expectedOutput[i];
+                    differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
                 }
                 float cost = 0.0f;
                 for (int i = 0; i < differences.Length; i++)
@@ -647,7 +647,7 @@ namespace Neural_network
             {
                 total += inputs[i] * weights[i];
             }
-            total += bias; // comment this out for testing
+            total += bias;
             output = sigmoid(total);
         }
         public void weightStep(bool direction)
