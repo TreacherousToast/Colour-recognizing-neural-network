@@ -7,18 +7,21 @@ namespace Neural_network
 {
     class Program
     {
+        static string[] colours = {"red","orange","yellow","green","blue","purple","white","grey","black"};
         static void Main(string[] args)
         {
             neuron[] inputLayer = new neuron[3]; // these values can be changed to be the parameters for any neural network
-            neuron[] hiddenLayer = new neuron[20];
-            neuron[] outputLayer = new neuron[9];
+            neuron[] hiddenLayer = new neuron[10];
+            neuron[] outputLayer = new neuron[colours.Length];
             bool direction; // true for forwards, false for backwards
             bool biasDirection;
+            const bool outputRawData = false; // Use for debugging or extracting the raw data. It is going to cause unreachable code errors if set false. Ignore them.
             float[] outputs = new float[outputLayer.Length];
-            float bestCost = 100000000.0f;
+            float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
             int countWithoutImprovment = 0;
             const int threshold = 5;
-            string trainingAndTestingPath = "training.txt";
+            const string trainingPath = "training.txt";
+            const string testingPath = "training.txt";
             // initiaization
             for (int i = 0; i < inputLayer.Length;i++)
             {
@@ -48,7 +51,7 @@ namespace Neural_network
 
             Console.WriteLine("Training weights");
             // training first line
-            string[] trainingData = File.ReadAllLines(trainingAndTestingPath);
+            string[] trainingData = File.ReadAllLines(trainingPath);
             string[] firstLine = trainingData[0].Split(' ');
             for (int i = 0; i < inputLayer.Length; i++)
             {
@@ -247,7 +250,14 @@ namespace Neural_network
                 {
                     outputLayer[i].weightStep(direction);
                 }
-                Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
+                if (outputRawData == false)
+                {
+                    Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
+                }
+                else
+                {
+                    Console.WriteLine(cost);
+                }
                 if (Math.Abs(cost) < Math.Abs(bestCost))
                 {
                     bestCost = cost;
@@ -300,7 +310,7 @@ namespace Neural_network
             {
                 outputLayer[i].bestBias = outputLayer[i].bias;
             }
-            trainingData = File.ReadAllLines(trainingAndTestingPath);
+            trainingData = File.ReadAllLines(trainingPath);
             firstLine = trainingData[0].Split(' ');
             for (int i = 0; i < inputLayer.Length; i++)
             {
@@ -499,7 +509,14 @@ namespace Neural_network
                 {
                     outputLayer[i].biasStep(direction);
                 }
-                Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
+                if (outputRawData == false)
+                {
+                    Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
+                }
+                else
+                {
+                    Console.WriteLine(cost);
+                }
                 if (Math.Abs(cost) < Math.Abs(bestCost))
                 {
                     bestCost = cost;
@@ -540,7 +557,7 @@ namespace Neural_network
             }
 
             Console.WriteLine("Testing");
-            string[]testData = File.ReadAllLines(trainingAndTestingPath);
+            string[]testData = File.ReadAllLines(testingPath);
             for (int a = 0; a < testData.Length; a++)
             {
                 string[] currLine = testData[a].Split(' ');
@@ -581,17 +598,22 @@ namespace Neural_network
                 }
                 expectedOutput = new float[outputLayer.Length];
                 expectedOutput[getExpectedOutput(currLine[3])] = 1.0f;
-                Console.WriteLine("Colour guessed: "+getColourName(actualOutput) + " | Actual colour: " + getColourName(expectedOutput)+" | Confidence: " + actualOutput[getExpectedOutput(currLine[3])]);
+                if (outputRawData == false)
+                {
+                    Console.WriteLine("Colour guessed: "+getColourName(actualOutput) + " | Actual colour: " + getColourName(expectedOutput)+" | Confidence: " + actualOutput[getExpectedOutput(currLine[3])]);
+                }
+                else 
+                {
+                    Console.WriteLine(getColourName(actualOutput)+" "+getColourName(expectedOutput));
+                }
             }
         }
         public static int getExpectedOutput(string input)
         {
-            string[]colours = {"red","orange","yellow","green","blue","purple","white","grey","black"};
             return Array.IndexOf(colours, input);
         }
         public static string getColourName(float[] input)
         {
-            string[]colours = {"red","orange","yellow","green","blue","purple","white","grey","black"};
             return colours[input.ToList().IndexOf(maxVal(input))];
         }
         public static float maxVal(float[] input) // might need to use this, maybe just use the built-in function. I couldn't get the built-in function to work properly
