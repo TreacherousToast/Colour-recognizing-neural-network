@@ -11,17 +11,18 @@ namespace Neural_network
         static void Main(string[] args)
         {
             neuron[] inputLayer = new neuron[3]; // these values can be changed to be the parameters for any neural network
-            neuron[] hiddenLayer = new neuron[10];
+            neuron[] hiddenLayer = new neuron[20];
             neuron[] outputLayer = new neuron[colours.Length];
             bool direction; // true for forwards, false for backwards
             bool biasDirection;
-            const bool outputRawData = false; // Use for debugging or extracting the raw data. It is going to cause unreachable code errors if set false. Ignore them.
+            bool outputRawData = false;
             float[] outputs = new float[outputLayer.Length];
             float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
             int countWithoutImprovment = 0;
-            const int threshold = 5;
+            const int threshold = 100;
             const string trainingPath = "training.txt";
             const string testingPath = "training.txt";
+            string[] trainingData = File.ReadAllLines(trainingPath);
             // initiaization
             for (int i = 0; i < inputLayer.Length;i++)
             {
@@ -51,7 +52,6 @@ namespace Neural_network
 
             Console.WriteLine("Training weights");
             // training first line
-            string[] trainingData = File.ReadAllLines(trainingPath);
             string[] firstLine = trainingData[0].Split(' ');
             for (int i = 0; i < inputLayer.Length; i++)
             {
@@ -93,7 +93,7 @@ namespace Neural_network
             float[] differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);
             }
             float firstCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -156,7 +156,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
             }
             float secondCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -226,11 +226,11 @@ namespace Neural_network
                     actualOutput[i] = outputLayer[i].output;
                 }
                 expectedOutput = new float[outputLayer.Length];
-                expectedOutput[getExpectedOutput(firstLine[3])] = 1.0f;
+                expectedOutput[getExpectedOutput(currLine[3])] = 1.0f;
                 differences = new float[expectedOutput.Length];
                 for (int i = 0; i < expectedOutput.Length; i++)
                 {
-                    differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                    differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
                 }
                 float cost = 0.0f;
                 for (int i = 0; i < differences.Length; i++)
@@ -352,7 +352,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
             }
             firstCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -415,7 +415,7 @@ namespace Neural_network
             differences = new float[expectedOutput.Length];
             for (int i = 0; i < expectedOutput.Length; i++)
             {
-                differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
             }
             secondCost = 0.0f;
             for (int i = 0; i < differences.Length; i++)
@@ -485,11 +485,11 @@ namespace Neural_network
                     actualOutput[i] = outputLayer[i].output;
                 }
                 expectedOutput = new float[outputLayer.Length];
-                expectedOutput[getExpectedOutput(firstLine[3])] = 1.0f;
+                expectedOutput[getExpectedOutput(currLine[3])] = 1.0f;
                 differences = new float[expectedOutput.Length];
                 for (int i = 0; i < expectedOutput.Length; i++)
                 {
-                    differences[i] = (actualOutput[i] - expectedOutput[i])*(actualOutput[i] - expectedOutput[i]);
+                    differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
                 }
                 float cost = 0.0f;
                 for (int i = 0; i < differences.Length; i++)
@@ -614,19 +614,7 @@ namespace Neural_network
         }
         public static string getColourName(float[] input)
         {
-            return colours[input.ToList().IndexOf(maxVal(input))];
-        }
-        public static float maxVal(float[] input) // might need to use this, maybe just use the built-in function. I couldn't get the built-in function to work properly
-        {
-            float maxVal = 0;
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] > maxVal)
-                {
-                    maxVal = input[i];
-                }
-            }
-            return maxVal;
+            return colours[Array.IndexOf(input, input.Max())];
         }
     }
     class neuron
