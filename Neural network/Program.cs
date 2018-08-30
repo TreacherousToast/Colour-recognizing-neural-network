@@ -9,9 +9,9 @@ namespace Neural_network
     {
         static string[] colours = {"red","orange","yellow","green","blue","purple","white","grey","black"};
         static void Main(string[] args)
-        {
+        { // the issue with the network guessing the same solour might be because of one of the weight settings being overfitted to a certain colour value
             neuron[] inputLayer = new neuron[3]; // these values can be changed to be the parameters for any neural network
-            neuron[] hiddenLayer = new neuron[20];
+            neuron[] hiddenLayer = new neuron[40];
             neuron[] outputLayer = new neuron[colours.Length];
             bool direction; // true for forwards, false for backwards
             bool biasDirection;
@@ -612,7 +612,7 @@ namespace Neural_network
         {
             return Array.IndexOf(colours, input);
         }
-        public static string getColourName(float[] input)
+        public static string getColourName(float[] input) // this works properly
         {
             return colours[Array.IndexOf(input, input.Max())];
         }
