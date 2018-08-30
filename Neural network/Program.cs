@@ -9,7 +9,7 @@ namespace Neural_network
     {
         static string[] colours = {"red","orange","yellow","green","blue","purple","white","grey","black"};
         static void Main(string[] args)
-        { // the issue with the network guessing the same solour might be because of one of the weight settings being overfitted to a certain colour value
+        { // the issue with the network guessing the same colour might be because of one of the weight settings being overfitted to a certain colour value
             neuron[] inputLayer = new neuron[3]; // these values can be changed to be the parameters for any neural network
             neuron[] hiddenLayer = new neuron[40];
             neuron[] outputLayer = new neuron[colours.Length];
