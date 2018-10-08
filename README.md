@@ -13,5 +13,5 @@ There is another program in the repository that makes it slightly easier to gene
 
 So far, I have tested this on macOS and Ubuntu machines, and both work correctly.
 
-#Experimental version
+# Experimental version
 The file named "Experimental-program.cs" is the experimental version of the network. It is testing some new ideas about how the neural network could function and how it can be improved (because as of when I'm writing this, it doesn't work). To test it, just copy the code inside it and paste it into a new C# project.
