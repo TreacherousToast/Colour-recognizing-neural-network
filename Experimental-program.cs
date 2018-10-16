@@ -20,9 +20,14 @@ namespace Neural_network
             float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
             int countWithoutImprovment = 0;
             const int threshold = 100;
+            const int listLen = 5;
             const string trainingPath = "training.txt";
             const string testingPath = "training.txt";
             string[] trainingData = File.ReadAllLines(trainingPath);
+            List<float>pastCosts = new List<float>();
+            float currAvg = 10000000.0f;
+            float lastAvg = 100000000000.0f;
+            
             // initiaization
             for (int i = 0; i < inputLayer.Length;i++)
             {
@@ -35,6 +40,10 @@ namespace Neural_network
             for (int i = 0; i < outputLayer.Length;i++)
             {
                 outputLayer[i] = new neuron();
+            }
+            for (int i = 0; i < listLen-2; i++)
+            {
+                pastCosts.Add(10000000.0f);
             }
             
             for (int i = 0; i < inputLayer.Length; i++)
@@ -100,7 +109,7 @@ namespace Neural_network
             {
                 firstCost += differences[i];
             }
-
+            pastCosts.Add(firstCost);
             for (int i = 0; i < inputLayer.Length; i++)
             {
                 inputLayer[i].weightStep(true);
@@ -163,7 +172,7 @@ namespace Neural_network
             {
                 secondCost += differences[i];
             }
-            
+            pastCosts.Add(secondCost);
             // figuring out direction
             if (Math.Abs(secondCost) > Math.Abs(firstCost))
             {
