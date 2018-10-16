@@ -230,7 +230,7 @@ namespace Neural_network
                 differences = new float[expectedOutput.Length];
                 for (int i = 0; i < expectedOutput.Length; i++)
                 {
-                    differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);;
+                    differences[i] = (float)Math.Pow((actualOutput[i] - expectedOutput[i]),2);
                 }
                 float cost = 0.0f;
                 for (int i = 0; i < differences.Length; i++)
