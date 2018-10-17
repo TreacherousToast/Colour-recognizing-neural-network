@@ -19,7 +19,7 @@ namespace Neural_network
             float[] outputs = new float[outputLayer.Length];
             float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
             int countWithoutImprovment = 0;
-            const int threshold = 50;
+            const int threshold = 100;
             const string trainingPath = "training.txt";
             const string testingPath = "training.txt";
             string[] trainingData = File.ReadAllLines(trainingPath);
