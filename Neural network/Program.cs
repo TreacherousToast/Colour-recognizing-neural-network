@@ -19,11 +19,12 @@ namespace Neural_network
             float[] outputs = new float[outputLayer.Length];
             float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
             int countWithoutImprovment = 0;
-            const int threshold = 100;
+            const int threshold = 50;
             const string trainingPath = "training.txt";
             const string testingPath = "training.txt";
             string[] trainingData = File.ReadAllLines(trainingPath);
             // initiaization
+            Console.Clear();
             for (int i = 0; i < inputLayer.Length;i++)
             {
                 inputLayer[i] = new neuron();
@@ -238,25 +239,13 @@ namespace Neural_network
                     cost += differences[i];
                 }
 
-                for (int i = 0; i < inputLayer.Length; i++)
-                {
-                    inputLayer[i].weightStep(direction);
-                }
-                for (int i = 0; i < hiddenLayer.Length; i++)
-                {
-                    hiddenLayer[i].weightStep(direction);
-                }
-                for (int i = 0; i < outputLayer.Length; i++)
-                {
-                    outputLayer[i].weightStep(direction);
-                }
                 if (outputRawData == false)
                 {
                     Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
                 }
                 else
                 {
-                    Console.WriteLine(cost);
+                    Console.WriteLine(a+" "+cost);
                 }
                 if (Math.Abs(cost) < Math.Abs(bestCost))
                 {
@@ -283,17 +272,32 @@ namespace Neural_network
                         for (int b = 0; b < inputLayer.Length; b++)
                         {
                             inputLayer[b].weights = inputLayer[b].bestWeights;
+                            inputLayer[b].bestBias = inputLayer[b].bias;
                         }
                         for (int b = 0; b < hiddenLayer.Length; b++)
                         {
                             hiddenLayer[b].weights = hiddenLayer[b].bestWeights;
+                            hiddenLayer[b].bestBias = hiddenLayer[b].bias;
                         }
                         for (int b = 0; b < outputLayer.Length; b++)
                         {
                             outputLayer[b].weights = outputLayer[b].bestWeights;
+                            outputLayer[b].bestBias = outputLayer[b].bias;
                         }
                         break;
                     }
+                }
+                for (int i = 0; i < inputLayer.Length; i++)
+                {
+                    inputLayer[i].weightStep(direction);
+                }
+                for (int i = 0; i < hiddenLayer.Length; i++)
+                {
+                    hiddenLayer[i].weightStep(direction);
+                }
+                for (int i = 0; i < outputLayer.Length; i++)
+                {
+                    outputLayer[i].weightStep(direction);
                 }
             }
             // bias training
@@ -497,25 +501,13 @@ namespace Neural_network
                     cost += differences[i];
                 }
 
-                for (int i = 0; i < inputLayer.Length; i++)
-                {
-                    inputLayer[i].biasStep(direction);
-                }
-                for (int i = 0; i < hiddenLayer.Length; i++)
-                {
-                    hiddenLayer[i].biasStep(direction);
-                }
-                for (int i = 0; i < outputLayer.Length; i++)
-                {
-                    outputLayer[i].biasStep(direction);
-                }
                 if (outputRawData == false)
                 {
                     Console.WriteLine("Current iteration: "+a+" | Current cost: "+cost);
                 }
                 else
                 {
-                    Console.WriteLine(cost);
+                    Console.WriteLine(a+" "+cost);
                 }
                 if (Math.Abs(cost) < Math.Abs(bestCost))
                 {
@@ -553,6 +545,18 @@ namespace Neural_network
                         }
                         break;
                     }
+                }
+                for (int i = 0; i < inputLayer.Length; i++)
+                {
+                    inputLayer[i].biasStep(direction);
+                }
+                for (int i = 0; i < hiddenLayer.Length; i++)
+                {
+                    hiddenLayer[i].biasStep(direction);
+                }
+                for (int i = 0; i < outputLayer.Length; i++)
+                {
+                    outputLayer[i].biasStep(direction);
                 }
             }
 
@@ -635,19 +639,16 @@ namespace Neural_network
             weights = new float[numOfInputs];
             weightStepSizes = new float[numOfInputs];
             bestWeights = weights;
-            bias = (float)randnum.NextDouble() + randnum.Next(-10,10);
+            bias = (float)randnum.NextDouble() + (float)randnum.Next(-10,10);
             biasStepVal = (float)randnum.NextDouble();
+            float[] signModifier = {-1.0f,1.0f};
             for (int i = 0; i < weights.Length; i++)
             {
-                weights[i] = (float)randnum.NextDouble();
+                weights[i] = 5.0f*(float)randnum.NextDouble()*signModifier[randnum.Next(0,2)];
             }
             for (int i = 0; i < weightStepSizes.Length; i++)
             {
-                weightStepSizes[i] = (float)randnum.NextDouble();
-                if (randnum.Next(0,2) == 0)
-                {
-                    weightStepSizes[i] *= -1;
-                }
+                weightStepSizes[i] = (float)randnum.NextDouble()*signModifier[randnum.Next(0,2)];
             }
         }
         public void calculate()
