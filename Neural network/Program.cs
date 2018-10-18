@@ -17,7 +17,7 @@ namespace Neural_network
             bool biasDirection;
             bool outputRawData = false;
             float[] outputs = new float[outputLayer.Length];
-            float bestCost = 100000000.0f; // hypothetically, there will be a problem if the cost function doesn't get better than this
+            float bestCost = 100000000.0f;
             int countWithoutImprovment = 0;
             const int threshold = 100;
             const string trainingPath = "training.txt";
