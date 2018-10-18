@@ -38,7 +38,7 @@ void keyPressed()
   }
   else if (key == ENTER)
   {
-    output.println(red+" "+blue+" "+green+" "+currColour);
+    output.println(red+" "+green+" "+blue+" "+currColour); // all credit goes to Daniel for figuring out the problem here
     red = random(1);
     green = random(1);
     blue = random(1);
